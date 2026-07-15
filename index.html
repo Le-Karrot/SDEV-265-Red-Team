@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Chatbot</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>🌤 Weather Chatbot</h1>
+        <p>Ask about the weather in any city.</p>
+    </header>
+
+    <main>
+
+        <!-- Search Section -->
+        <section class="search-box">
+            <input
+                type="text"
+                id="city"
+                placeholder="Enter a city name..."
+            >
+
+            <button id="searchBtn">
+                Get Weather
+            </button>
+        </section>
+
+        <!-- Chat Area -->
+        <section class="chat-container">
+
+            <div class="chat-message user">
+                <strong>You:</strong>
+                What's the weather in Indianapolis?
+            </div>
+
+            <div class="chat-message bot">
+                <strong>WeatherBot:</strong>
+                Temperature: 82°F<br>
+                Humidity: 65%<br>
+                Wind Speed: 8 mph<br>
+                Condition: Sunny
+            </div>
+
+        </section>
+
+        <!-- Weather Information -->
+        <section class="weather-card">
+
+            <h2>Current Weather</h2>
+
+            <p><strong>City:</strong> Indianapolis</p>
+
+            <p><strong>Temperature: 82°F</strong>
+                <span id="temperature"></span>
+            </p>
+
+            <p><strong>Humidity: 65%</strong>
+                <span id="humidity"></span>
+            </p>
+
+            <p><strong>Wind Speed: 8 mph</strong>
+                <span id="wind"></span>
+            </p>
+
+            <p><strong>Condition: Sunny</strong>
+                <span id="condition"></span>
+            </p>
+
+            <p><strong>Forecast: Partly cloudy</strong>
+                <span id="forecast"></span>
+            </p>
+
+        </section>
+
+        <!-- Weather Alerts -->
+        <section class="alerts">
+
+            <h2>Weather Alerts</h2>
+
+            <p id="alertMessage">
+                No active weather alerts.
+            </p>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>
+            © 2026 Weather Chatbot | Red Team |
+            Ivy Tech Community College
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
