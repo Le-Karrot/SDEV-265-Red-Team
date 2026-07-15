@@ -1,0 +1,177 @@
+/* ==========================
+   Weather Chatbot Styles
+========================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f8fb;
+    color: #333;
+}
+
+/* Header */
+
+header {
+    background-color: #0077b6;
+    color: white;
+    text-align: center;
+    padding: 25px;
+}
+
+header h1 {
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 18px;
+}
+
+/* Main */
+
+main {
+    width: 80%;
+    margin: 30px auto;
+}
+
+/* Search Box */
+
+.search-box {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.search-box input {
+    width: 300px;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-box button {
+    padding: 12px 25px;
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search-box button:hover {
+    background-color: #005f8d;
+}
+
+/* Chat Messages */
+
+.chat-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+
+.chat-message {
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+
+.user {
+    background-color: #dbeafe;
+}
+
+.bot {
+    background-color: #d1fae5;
+}
+
+/* Weather Output */
+
+.weather-output {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+
+.weather-output h2 {
+    color: #0077b6;
+    margin-bottom: 15px;
+}
+
+/* Weather Card */
+
+.weather-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.1);
+}
+
+.weather-card h2 {
+    color: #0077b6;
+    margin-bottom: 15px;
+}
+
+.weather-card p {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+/* Alerts */
+
+.alerts {
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+
+.alerts h2 {
+    color: #856404;
+    margin-bottom: 10px;
+}
+
+/* Footer */
+
+footer {
+    background-color: #0077b6;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+}
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+
+    main {
+        width: 95%;
+    }
+
+    .search-box input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .search-box button {
+        width: 100%;
+    }
+
+    .weather-card,
+    .weather-output,
+    .chat-container,
+    .alerts {
+        padding: 15px;
+    }
+}
