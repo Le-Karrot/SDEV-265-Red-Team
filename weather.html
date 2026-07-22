@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Chatbot</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>🌤 Weather Chatbot</h1>
+        <p>{{ greeting }}</p>
+    </header>
+
+    <main>
+
+        <!-- Search -->
+        <section class="search-box">
+
+            <input
+                type="text"
+                id="city"
+                placeholder="Enter a city name">
+
+            <button id="searchBtn">
+                Get Weather
+            </button>
+
+        </section>
+
+        <!-- Chatbot Output -->
+        <section class="weather-output">
+
+            <h2>Chatbot Response</h2>
+
+            <div id="chatResponse" class="chat-message bot">
+                Ask me about the weather.
+            </div>
+
+        </section>
+
+        <!-- Weather Card -->
+        <section class="weather-card">
+
+            <h2>Current Weather</h2>
+
+            <p><strong>City:</strong>
+                <span id="cityName">--</span>
+            </p>
+
+            <p><strong>Temperature:</strong>
+                <span id="temperature">--</span>
+            </p>
+
+            <p><strong>Humidity:</strong>
+                <span id="humidity">--</span>
+            </p>
+
+            <p><strong>Wind Speed:</strong>
+                <span id="wind">--</span>
+            </p>
+
+            <p><strong>Condition:</strong>
+                <span id="condition">--</span>
+            </p>
+
+            <p><strong>Forecast:</strong>
+                <span id="forecast">--</span>
+            </p>
+
+        </section>
+
+        <!-- Alerts -->
+        <section class="alerts">
+
+            <h2>Weather Alerts</h2>
+
+            <p id="alertMessage">
+                No active weather alerts.
+            </p>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>
+            © 2026 Weather Chatbot |
+            Red Team |
+            Ivy Tech Community College
+        </p>
+    </footer>
+
+    <script>
+
+        document.getElementById("searchBtn").addEventListener("click", function () {
+
+            const city = document.getElementById("city").value;
+
+            fetch("/chat", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    message: city
+                })
+
+            })
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                document.getElementById("chatResponse").innerHTML =
+                    data.message || "Weather information received.";
+
+                document.getElementById("cityName").innerHTML =
+                    data.city || city;
+
+                document.getElementById("temperature").innerHTML =
+                    data.temperature ?? "--";
+
+                document.getElementById("humidity").innerHTML =
+                    data.humidity ?? "--";
+
+                document.getElementById("wind").innerHTML =
+                    data.wind ?? "--";
+
+                document.getElementById("condition").innerHTML =
+                    data.condition ?? "--";
+
+                document.getElementById("forecast").innerHTML =
+                    data.forecast ?? "Current conditions only.";
+
+            })
+
+            .catch(error => {
+
+                document.getElementById("chatResponse").innerHTML =
+                    "Unable to retrieve weather information.";
+
+                console.error(error);
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>
