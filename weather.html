@@ -1,161 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Chatbot</title>
+    <title>Meteor Weather Chatbot</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
+<div class="container">
+
     <!-- Header -->
     <header>
-        <h1>🌤 Weather Chatbot</h1>
-        <p>{{ greeting }}</p>
+        <h1>☁️ Meteor Weather Chatbot v1.0</h1>
     </header>
 
-    <main>
+    <!-- Chat Window -->
+    <section class="chat-window" id="chatWindow">
 
-        <!-- Search -->
-        <section class="search-box">
+        <div class="bot-message">
+            <strong>Meteor:</strong>
+            Hello! I'm Meteor, your weather assistant.
+            Ask me about today's weather, forecasts, humidity, wind speed,
+            or weather alerts.
+        </div>
 
-            <input
-                type="text"
-                id="city"
-                placeholder="Enter a city name">
+        <!-- Messages appear here -->
 
-            <button id="searchBtn">
-                Get Weather
-            </button>
+    </section>
 
-        </section>
+    <!-- Things chatbot can answer -->
+    <section class="help-box">
 
-        <!-- Chatbot Output -->
-        <section class="weather-output">
+        <h2>Ask me about...</h2>
 
-            <h2>Chatbot Response</h2>
+        <ul>
 
-            <div id="chatResponse" class="chat-message bot">
-                Ask me about the weather.
+            <li>🌡 Temperature</li>
+
+            <li>🥵 Heat Index / Wind Chill</li>
+
+            <li>💧 Humidity</li>
+
+            <li>🌧 Precipitation</li>
+
+            <li>💨 Wind Speed</li>
+
+            <li>☁️ Sky Cover</li>
+
+            <li>⚠ Weather Alerts</li>
+
+            <li>📅 Daily Forecast</li>
+
+            <li>📆 N-Day Basic Forecast</li>
+
+            <li>📊 N-Day Advanced Forecast</li>
+
+        </ul>
+
+    </section>
+
+    <!-- User Input -->
+    <section class="input-area">
+
+        <textarea
+            id="userInput"
+            placeholder="Type your weather question here..."
+            rows="3"></textarea>
+
+        <button id="sendBtn">
+            Send
+        </button>
+
+    </section>
+
+</div>
+
+<script>
+
+const sendBtn = document.getElementById("sendBtn");
+const chatWindow = document.getElementById("chatWindow");
+const userInput = document.getElementById("userInput");
+
+sendBtn.addEventListener("click", sendMessage);
+
+userInput.addEventListener("keypress", function(event){
+
+    if(event.key==="Enter" && !event.shiftKey){
+
+        event.preventDefault();
+
+        sendMessage();
+
+    }
+
+});
+
+function sendMessage(){
+
+    const message=userInput.value.trim();
+
+    if(message==="") return;
+
+    // User message
+
+    chatWindow.innerHTML += `
+        <div class="user-message">
+            <strong>You:</strong> ${message}
+        </div>
+    `;
+
+    userInput.value="";
+
+    chatWindow.scrollTop=chatWindow.scrollHeight;
+
+    fetch("/chat",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+            message:message
+        })
+
+    })
+
+    .then(response=>response.json())
+
+    .then(data=>{
+
+        chatWindow.innerHTML += `
+            <div class="bot-message">
+                <strong>Meteor:</strong>
+                ${data.response}
             </div>
+        `;
 
-        </section>
+        chatWindow.scrollTop=chatWindow.scrollHeight;
 
-        <!-- Weather Card -->
-        <section class="weather-card">
+    })
 
-            <h2>Current Weather</h2>
+    .catch(error=>{
 
-            <p><strong>City:</strong>
-                <span id="cityName">--</span>
-            </p>
+        chatWindow.innerHTML += `
+            <div class="bot-message">
+                <strong>Meteor:</strong>
+                Sorry, something went wrong.
+            </div>
+        `;
 
-            <p><strong>Temperature:</strong>
-                <span id="temperature">--</span>
-            </p>
+    });
 
-            <p><strong>Humidity:</strong>
-                <span id="humidity">--</span>
-            </p>
+}
 
-            <p><strong>Wind Speed:</strong>
-                <span id="wind">--</span>
-            </p>
-
-            <p><strong>Condition:</strong>
-                <span id="condition">--</span>
-            </p>
-
-            <p><strong>Forecast:</strong>
-                <span id="forecast">--</span>
-            </p>
-
-        </section>
-
-        <!-- Alerts -->
-        <section class="alerts">
-
-            <h2>Weather Alerts</h2>
-
-            <p id="alertMessage">
-                No active weather alerts.
-            </p>
-
-        </section>
-
-    </main>
-
-    <footer>
-        <p>
-            © 2026 Weather Chatbot |
-            Red Team |
-            Ivy Tech Community College
-        </p>
-    </footer>
-
-    <script>
-
-        document.getElementById("searchBtn").addEventListener("click", function () {
-
-            const city = document.getElementById("city").value;
-
-            fetch("/chat", {
-
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    message: city
-                })
-
-            })
-
-            .then(response => response.json())
-
-            .then(data => {
-
-                document.getElementById("chatResponse").innerHTML =
-                    data.message || "Weather information received.";
-
-                document.getElementById("cityName").innerHTML =
-                    data.city || city;
-
-                document.getElementById("temperature").innerHTML =
-                    data.temperature ?? "--";
-
-                document.getElementById("humidity").innerHTML =
-                    data.humidity ?? "--";
-
-                document.getElementById("wind").innerHTML =
-                    data.wind ?? "--";
-
-                document.getElementById("condition").innerHTML =
-                    data.condition ?? "--";
-
-                document.getElementById("forecast").innerHTML =
-                    data.forecast ?? "Current conditions only.";
-
-            })
-
-            .catch(error => {
-
-                document.getElementById("chatResponse").innerHTML =
-                    "Unable to retrieve weather information.";
-
-                console.error(error);
-
-            });
-
-        });
-
-    </script>
+</script>
 
 </body>
-
 </html>
