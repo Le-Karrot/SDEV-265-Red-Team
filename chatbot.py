@@ -13,9 +13,9 @@ except Exception:
 app = Flask(__name__)
 
 OPENWEATHER_API_KEY = os.environ.get("OPENWEATHER_API_KEY")
-ORACLEDB_USER = os.environ.get("ORACLE_DB_USER")
-ORACLEDB_PASSWORD = os.environ.get("ORACLE_DB_PASSWORD")
-ORACLEDB_DSN = os.environ.get("ORACLE_DB_DSN")
+ORACLEDB_USER = os.environ.get("ORACLEDB_USER")
+ORACLEDB_PASSWORD = os.environ.get("ORACLEDB_PASSWORD")
+ORACLEDB_DSN = os.environ.get("ORACLEDB_DSN")
 
 
 # FUNCTIONS
